@@ -1,8 +1,18 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+
 import spotifyWhiteIcon from '../../public/Primary_Logo_White_RGB.svg';
+
 import IconButton from './IconButton';
 
 export default function SpotifyLoginButton() {
+	const router = useRouter();
+
+	const handleLogin = () => {
+		router.push('/api/login');
+	};
 	return (
 		<IconButton
 			icon={
@@ -15,6 +25,7 @@ export default function SpotifyLoginButton() {
 				/>
 			}
 			className="absolute top-5 right-5 gap-2 px-3 bg-black hover:bg-green-spotify"
+			onClick={handleLogin}
 		>
 			<span className="text-white">Login with Spotify</span>
 		</IconButton>
