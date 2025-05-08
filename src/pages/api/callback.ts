@@ -1,9 +1,8 @@
+import { exchangeToken } from '@/lib/spotify/auth/exchangeToken';
+import { setAuthCookies } from '@/lib/spotify/auth/setAuthCookies';
+import { validateState } from '@/lib/spotify/auth/validateState';
+import { SpotifyTokenExchangeError } from '@/lib/spotify/errors';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { validateState } from '@/lib/spotify/validateState';
-import { exchangeToken } from '@/lib/spotify/exchangeToken';
-import { setAuthCookies } from '@/lib/spotify/setAuthCookies';
-import { SpotifyTokenExchangeError } from '@/lib/errors';
 
 export default async function handler(
 	req: NextApiRequest,

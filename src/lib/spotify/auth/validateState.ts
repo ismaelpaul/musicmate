@@ -1,6 +1,7 @@
 import { setCookie } from 'cookies-next';
-import { STATE_KEY } from './constants';
+
 import { NextApiRequest, NextApiResponse } from 'next';
+import { STATE_KEY } from '../constants';
 
 export function validateState(
 	req: NextApiRequest,

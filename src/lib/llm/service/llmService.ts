@@ -1,6 +1,6 @@
-import { generatePrompt } from './generatePrompt';
-import { config } from '../config';
-import { LLMSpotifyParams, llmSpotifyParamsSchema } from './schema';
+import { LLMSpotifyParams, llmSpotifyParamsSchema } from '../schema';
+import { generatePrompt } from '../utils/generatePrompt';
+import { config } from '../../config';
 import { LLMError, LLMOutputFormatError } from '../errors';
 
 export async function getSpotifyParamsFromLlm(
@@ -10,6 +10,7 @@ export async function getSpotifyParamsFromLlm(
 		throw new LLMError('LLM service is not configured.');
 	}
 
+	console.log('Generating Prompt for query:', userQuery);
 	// generates prompt based on the user query
 	const prompt = generatePrompt(userQuery);
 

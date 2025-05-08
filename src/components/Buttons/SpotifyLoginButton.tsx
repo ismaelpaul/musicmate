@@ -3,8 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-import spotifyWhiteIcon from '../../public/Primary_Logo_White_RGB.svg';
-
+import spotifyWhiteIcon from '../../../public/Primary_Logo_White_RGB.svg';
 import IconButton from './IconButton';
 
 export default function SpotifyLoginButton() {
