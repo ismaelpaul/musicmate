@@ -1,7 +1,8 @@
 import { setCookie } from 'cookies-next';
-import { TOKEN_COOKIE_KEY } from './constants';
+
 import { NextApiRequest, NextApiResponse } from 'next';
-import { SpotifyTokenResponse } from './types';
+import { SpotifyTokenResponse } from '../types';
+import { TOKEN_COOKIE_KEY } from '../constants';
 
 export function setAuthCookies(
 	req: NextApiRequest,

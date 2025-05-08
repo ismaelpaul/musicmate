@@ -2,8 +2,8 @@ import {
 	REDIRECT_URI,
 	SPOTIFY_CLIENT_ID,
 	SPOTIFY_CLIENT_SECRET,
-} from './constants';
-import { SpotifyTokenResponse } from './types';
+} from '../constants';
+import { SpotifyTokenResponse } from '../types';
 
 export function exchangeToken(code: string): Promise<SpotifyTokenResponse> {
 	const basicAuth = Buffer.from(
