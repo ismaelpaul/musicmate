@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { SpotifyAuthError } from '../../errors';
+
 import { TOKEN_COOKIE_KEY } from '../constants';
 import { getCookie } from 'cookies-next';
+import { SpotifyAuthError } from '../errors';
 
 export async function getSpotifyAccessToken(
 	req: NextApiRequest,
