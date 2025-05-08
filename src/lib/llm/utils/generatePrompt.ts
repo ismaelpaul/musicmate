@@ -40,6 +40,15 @@ Constraints:
 //   "seed_genres": ["acoustic", "sad"],
 //   "target_energy": 0.3,
 //   "target_valence": 0.2
+//   "target_instrumentalness": 0.7 // Could be high if instrumental if its a instrumental song
+// }
+// User Request: "Instrumental study music, maybe some classical guitar"
+// JSON Output:
+// {
+//   "seed_genres": ["classical guitar", "instrumental", "focus"],
+//   "target_instrumentalness": 0.9, // High instrumentalness
+//   "target_energy": 0.3,
+//   "target_valence": 0.5
 // }
 // --- End Examples ---
 
