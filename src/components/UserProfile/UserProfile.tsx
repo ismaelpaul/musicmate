@@ -12,7 +12,7 @@ export default function UserProfile() {
 	if (!user) return <p>No user data available.</p>;
 
 	return (
-		<div className="flex items-center justify-end gap-2">
+		<div className="flex items-center justify-end">
 			{user.images[1]?.url && (
 				<Image
 					width={user.images[1].width}
@@ -22,9 +22,6 @@ export default function UserProfile() {
 					className="w-10 h-10 rounded-full"
 				/>
 			)}
-			<div>
-				<p className="font-semibold">{user.display_name}</p>
-			</div>
 		</div>
 	);
 }
