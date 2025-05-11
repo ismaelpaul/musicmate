@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react';
+import { LuLoaderCircle } from 'react-icons/lu';
 import { ChatMessage } from './types';
 import { RecommendationList } from '../Recommendations/RecommendationsList';
 
@@ -10,7 +10,7 @@ export function SystemMessage({ message }: SystemMessageProps) {
 	if (message.status === 'loading') {
 		return (
 			<div className="flex items-center gap-2 text-gray-600">
-				<Loader2 className="animate-spin h-4 w-4" />
+				<LuLoaderCircle className="animate-spin h-4 w-4" />
 				<span>Finding recommendations...</span>
 			</div>
 		);
