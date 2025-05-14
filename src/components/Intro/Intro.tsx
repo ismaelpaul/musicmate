@@ -1,10 +1,9 @@
-import { useAuth } from '@/hooks/useAuth/useAuth';
 import { useTypingEffect } from '@/hooks/useTypingEffect/useTypingEffect';
+import { useSession } from 'next-auth/react';
 
 export default function Intro() {
-	const { user } = useAuth();
-
-	const firstName = user?.display_name?.split(' ')[0];
+	const { data: session } = useSession();
+	const firstName = session?.user?.name?.split(' ')[0];
 
 	const hints = [
 		`"Give me some sad acoustic songs with the same vibe as Neil Young"`,
@@ -17,13 +16,13 @@ export default function Intro() {
 
 	return (
 		<>
-			<div className="flex-grow flex flex-col items-center justify-center text-gray-400 text-center">
-				<h1 className="text-2xl mb-2">Hi {firstName}</h1>
-				<p className="mb-4">
+			<div className="flex-grow flex flex-col items-center justify-center text-black text-center">
+				<h1 className="text-5xl mb-2">Hi {firstName}</h1>
+				<p className="text-3xl mb-4 font-light">
 					Feeling groovy, gloomy, or somewhere in between? Let’s find your
 					sound.
 				</p>
-				<p className="italic">
+				<p className="text-3xl font-light italic">
 					e.g. <span>{typedHint}</span>
 					<span className="animate-pulse">|</span>
 				</p>
