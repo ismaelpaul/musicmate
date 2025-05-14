@@ -1,17 +1,16 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import spotifyWhiteIcon from '../../../public/Primary_Logo_White_RGB.svg';
 import IconButton from './IconButton';
+import { signIn } from 'next-auth/react';
 
 export default function SpotifyLoginButton() {
-	const router = useRouter();
-
 	const handleLogin = () => {
-		router.push('/api/login');
+		signIn('spotify', { callbackUrl: '/' });
 	};
+
 	return (
 		<IconButton
 			icon={
@@ -23,7 +22,7 @@ export default function SpotifyLoginButton() {
 					priority
 				/>
 			}
-			className="gap-2 px-3 font-bold bg-black hover:bg-green-spotify cursor-pointer"
+			className="gap-2 px-4 bg-black hover:bg-green-spotify cursor-pointer text-2xl"
 			onClick={handleLogin}
 		>
 			<span className="text-white">Login with Spotify</span>
