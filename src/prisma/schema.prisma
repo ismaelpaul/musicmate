@@ -9,20 +9,14 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  spotify_id    String   @unique                    
-  email        String?  @unique
-  full_name  String?
-  image        String?                           
-  country      String?
-  product      String?
-  access_token  String                            
-  refresh_token String                           
-  expires_at    DateTime
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  id        String    @id @default(cuid())
+  spotify_id String
+  full_name      String?
+  email     String?   @unique
+  image     String?
 
   @@map("users")
 }
+
 
 
