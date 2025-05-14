@@ -1,12 +1,15 @@
 @import 'tailwindcss';
 
 :root {
-	--background: #ececec;
-	--foreground: #171717;
+	--background: #f4f4f4;
+	--foreground: #373737;
 }
 
 @theme {
 	--green-spotify: oklch(0.77 0.2124 148.67);
+	--medium-gray: #535353;
+	--light-gray: #b3b3b3;
+	--dark-bg: #23232f;
 }
 
 @theme inline {
@@ -18,15 +21,14 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+		--background: #23232f;
+		--foreground: #f5f5f5;
 	}
 }
 
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
 }
 
 .bg-green-spotify {
@@ -35,4 +37,24 @@ body {
 
 .hover\:bg-green-spotify:hover {
 	background-color: var(--green-spotify);
+}
+
+.bg-medium-gray {
+	background-color: var(--medium-gray);
+}
+
+.bg-light-gray {
+	background-color: var(--light-gray);
+}
+
+.no-scrollbar {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.bg-dark {
+	background-color: var(--dark-bg);
 }

@@ -1,30 +1,29 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth/useAuth';
-
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 
 export default function UserProfile() {
-	const { user, isLoading, error } = useAuth();
+	const { data: session, status } = useSession();
 
-	if (isLoading) return <p>Loading...</p>;
-	if (error) return <p>Error: {error}</p>;
-	if (!user) return <p>No user data available.</p>;
+	if (status === 'loading') return <p>Loading...</p>;
+	if (status === 'unauthenticated') return <p>No user data available.</p>;
+	if (status === 'authenticated' && !session?.user)
+		return <p>No user data available.</p>;
+
+	const user = session?.user;
 
 	return (
-		<div className="flex items-center justify-end gap-2">
-			{user.images[1]?.url && (
+		<div className="flex items-center justify-end">
+			{user?.image && (
 				<Image
-					width={user.images[1].width}
-					height={user.images[1].height}
-					src={user.images[1].url}
+					width={50}
+					height={50}
+					src={user.image}
 					alt={'User Profile Image'}
 					className="w-10 h-10 rounded-full"
 				/>
 			)}
-			<div>
-				<p className="font-semibold">{user.display_name}</p>
-			</div>
 		</div>
 	);
 }
