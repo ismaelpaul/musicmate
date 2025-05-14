@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Zain } from 'next/font/google';
 
-import { AuthProvider } from '@/context/AuthContext';
-import { SpotifyPlayerProvider } from '@/context/SpotifyPlayerContext';
+import { Providers } from './providers';
 
 export const metadata: Metadata = {
 	title: 'MusicMate',
@@ -23,9 +22,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={zain.className}>
 			<body>
-				<AuthProvider>
-					<SpotifyPlayerProvider>{children}</SpotifyPlayerProvider>
-				</AuthProvider>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);
