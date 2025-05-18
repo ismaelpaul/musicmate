@@ -2,12 +2,15 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { BaseError } from '@/lib/errors';
 import { recommendationHandler } from '@/lib/api/handlers/recommendationHandler';
+import { RecommendationTrack } from '@/components/Spotify/types';
 
-type Data = { recommendations: any } | { error: string };
+type RecommendationsResponse =
+	| { recommendations: RecommendationTrack[] }
+	| { error: string };
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<Data>
+	res: NextApiResponse<RecommendationsResponse>
 ) {
 	if (req.method !== 'POST') {
 		return res
@@ -20,6 +23,7 @@ export default async function handler(
 
 	try {
 		const recommendations = await recommendationHandler(req, res);
+
 		return res.status(200).json({ recommendations });
 	} catch (error) {
 		console.error('API Handler Error: ', error);
