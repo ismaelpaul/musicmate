@@ -16,8 +16,10 @@ export default function Intro() {
 
 	return (
 		<>
-			<div className="flex-grow flex flex-col items-center justify-center text-black text-center">
-				<h1 className="text-5xl mb-2">Hi {firstName}</h1>
+			<header className="flex-grow flex flex-col items-center justify-center text-black dark:text-white text-center">
+				<h1 className="text-3xl md:text-4xl lg:text-5xl mb-2">
+					Hi {firstName}
+				</h1>
 				<p className="text-3xl mb-4 font-light">
 					Feeling groovy, gloomy, or somewhere in between? Let’s find your
 					sound.
@@ -26,7 +28,7 @@ export default function Intro() {
 					e.g. <span>{typedHint}</span>
 					<span className="animate-pulse">|</span>
 				</p>
-			</div>
+			</header>
 		</>
 	);
 }
