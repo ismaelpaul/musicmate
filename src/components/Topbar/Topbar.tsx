@@ -1,7 +1,7 @@
 'use client';
 
 import { useSidebarStore } from '@/store/useSidebarStore';
-import { TbLayoutSidebarLeftCollapseFilled } from 'react-icons/tb';
+import { FiMenu } from 'react-icons/fi';
 import UserProfile from '../UserProfile/UserProfile';
 import IconButton from '../Buttons/IconButton';
 
@@ -13,10 +13,10 @@ export const Topbar = () => {
 	};
 
 	return (
-		<header className="h-14 flex items-center justify-between px-4 bg-gray-100">
+		<header className="h-14 flex items-center justify-between px-4 backdrop-blur-lg">
 			<IconButton
-				icon={<TbLayoutSidebarLeftCollapseFilled />}
-				className="md:hidden w-8 h-8"
+				icon={<FiMenu />}
+				className="md:hidden text-2xl"
 				onClick={toggleSidebar}
 			/>
 
