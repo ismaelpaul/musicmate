@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 export const useMobile = () => {
 	const [screenSize, setScreenSize] = useState({
-		width: window.innerWidth,
-		height: window.innerHeight,
+		width: 0,
+		height: 0,
 	});
 
 	useEffect(() => {
@@ -13,6 +13,8 @@ export const useMobile = () => {
 				height: window.innerHeight,
 			});
 		};
+
+		handleResize();
 
 		window.addEventListener('resize', handleResize);
 
