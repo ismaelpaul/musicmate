@@ -1,19 +1,20 @@
 'use client';
 
+import { useMobile } from '@/hooks/useMobile/useMobile';
 import Sidebar from '../Sidebar/Sidebar';
 import { Topbar } from '../Topbar/Topbar';
 import { useSidebarStore } from '@/store/useSidebarStore';
+import { Overlay } from '../Overlay/Overlay';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-	const { isExpanded, setIsExpanded } = useSidebarStore();
+	const { isExpanded } = useSidebarStore();
+	const isMobile = useMobile();
 
 	return (
 		<div className="relative flex h-screen overflow-hidden">
-			<Sidebar
-				setIsExpanded={setIsExpanded}
-				isExpanded={isExpanded}
-				onClose={() => setIsExpanded(false)}
-			/>
+			<Sidebar />
+
+			{isMobile && isExpanded && <Overlay />}
 
 			<div className="flex flex-col flex-1 relative transition-all duration-300">
 				<Topbar />
