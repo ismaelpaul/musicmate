@@ -16,7 +16,7 @@ export default function SpotifyPlayer() {
 
 	return (
 		<div
-			className="w-full p-6 text-white rounded-lg shadow-lg bg-cover bg-center mt-70"
+			className="w-full p-4 text-white rounded-lg shadow-lg bg-cover bg-center mt-70"
 			style={{
 				backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url(${currentTrackPlaying.album.images[0].url})`,
 			}}
