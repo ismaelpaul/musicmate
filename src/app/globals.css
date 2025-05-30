@@ -55,6 +55,29 @@ body {
 	display: none;
 }
 
-.bg-dark {
+.dark-bg {
+	background-color: var(--dark-bg);
+}
+
+@keyframes text-loop {
+	0% {
+		transform: translateX(200%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+.animate-text-loop {
+	display: inline-block;
+	white-space: nowrap;
+	animation: text-loop 15s linear infinite;
+}
+
+.animate-text-loop:hover {
+	animation-play-state: paused;
+}
+
+.dark-bg {
 	background-color: var(--dark-bg);
 }

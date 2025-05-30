@@ -13,7 +13,7 @@ export const llmSpotifyParamsSchema = z
 	})
 	.refine(
 		(data) => {
-			// Custom validation: Check total seeds <= 5 (adjust refinement as needed)
+			// check total seeds <= 5
 			let totalSeeds = 0;
 			if (data.seed_artists) totalSeeds += data.seed_artists.length;
 			if (data.seed_genres) totalSeeds += data.seed_genres.length;
@@ -28,6 +28,10 @@ export const llmSpotifyParamsSchema = z
 
 export const recommendationRequestSchema = z.object({
 	userQuery: z.string().min(1, { message: 'User query cannot be empty' }),
+	recommendationLimit: z
+		.number()
+		.min(1, { message: 'You should have at least 1 recommendation' })
+		.max(20, { message: 'You cannot have more than 20 recommendations' }),
 });
 
 export type LLMSpotifyParams = z.infer<typeof llmSpotifyParamsSchema>;

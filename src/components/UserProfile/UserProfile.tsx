@@ -14,7 +14,7 @@ export default function UserProfile() {
 	const user = session?.user;
 
 	return (
-		<div className="flex items-center justify-end">
+		<>
 			{user?.image && (
 				<Image
 					width={50}
@@ -24,6 +24,6 @@ export default function UserProfile() {
 					className="w-10 h-10 rounded-full"
 				/>
 			)}
-		</div>
+		</>
 	);
 }
