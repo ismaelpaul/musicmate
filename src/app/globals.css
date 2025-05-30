@@ -55,7 +55,7 @@ body {
 	display: none;
 }
 
-.bg-dark {
+.dark-bg {
 	background-color: var(--dark-bg);
 }
 
@@ -76,4 +76,8 @@ body {
 
 .animate-text-loop:hover {
 	animation-play-state: paused;
+}
+
+.dark-bg {
+	background-color: var(--dark-bg);
 }
