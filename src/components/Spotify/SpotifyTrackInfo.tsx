@@ -41,7 +41,7 @@ export default function SpotifyTrackInfo({
 	return (
 		<div
 			ref={containerRef}
-			className="relative overflow-hidden w-full h-10 flex items-center group"
+			className="relative overflow-hidden w-full h-6 flex items-center group"
 			style={{
 				maskImage:
 					'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
