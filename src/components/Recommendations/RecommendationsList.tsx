@@ -1,29 +1,31 @@
 import { RecommendationTrack } from '../Spotify/types';
+
+import { RecommendationItem } from './RecommendationItem';
 import {
 	useSpotifyPlayerActions,
 	useSpotifyPlayerState,
 } from '@/context/SpotifyPlayerContext';
-import { RecommendationItem } from './RecommendationItem';
 
 interface Props {
-	tracks: RecommendationTrack[];
+	recommendationTracks: RecommendationTrack[];
 }
 
-export function RecommendationList({ tracks }: Props) {
-	const { playTrack } = useSpotifyPlayerActions();
-	const { currentTrackUri } = useSpotifyPlayerState();
-
-	const isPlaying = (uri: string) => currentTrackUri === uri;
+export function RecommendationList({ recommendationTracks }: Props) {
+	const { playTrack, togglePlay } = useSpotifyPlayerActions();
+	const { deviceId, currentTrackUri, isPaused } = useSpotifyPlayerState();
 
 	return (
 		<div className="space-y-2">
 			<p className="mb-2 font-medium">Here are some recommendations:</p>
-			{tracks.map((track) => (
+			{recommendationTracks.map((track) => (
 				<RecommendationItem
 					key={track.id}
 					track={track}
-					isPlaying={isPlaying(track.uri)}
-					onPlay={() => playTrack(track.uri)}
+					playTrack={playTrack}
+					togglePlay={togglePlay}
+					currentTrackUri={currentTrackUri}
+					deviceId={deviceId}
+					isPaused={isPaused}
 				/>
 			))}
 		</div>
