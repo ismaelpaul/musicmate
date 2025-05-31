@@ -13,22 +13,23 @@ export const useSpotifyPlayer = (token: string | null, sdkReady: boolean) => {
 
 	// init player
 	useEffect(() => {
-		console.log('[useSpotifyPlayer] Effect: Init Player');
-		if (!token || !sdkReady || playerInstance) {
-			console.log('[useSpotifyPlayer] Skipping init: ', {
-				tokenAvailable: !!token,
-				sdkReady,
-				playerAlreadyExists: !!playerInstance,
-			});
+		if (!token || !sdkReady) {
+			if (playerInstance) {
+				playerInstance.disconnect();
+				setPlayerInstance(null);
+				setDeviceId(null);
+			}
 			return;
 		}
 
+		if (playerInstance) {
+			playerInstance.disconnect();
+		}
+
 		window.onSpotifyWebPlaybackSDKReady = () => {
-			console.log('[Spotify SDK] Ready, creating player');
 			const player: Spotify.Player = new window.Spotify.Player({
 				name: 'MusicMate Player',
 				getOAuthToken: (cb: (token: string) => void) => {
-					console.log('[Spotify SDK] Fetching OAuth token');
 					cb(token);
 				},
 				volume: 0.5,
@@ -37,7 +38,6 @@ export const useSpotifyPlayer = (token: string | null, sdkReady: boolean) => {
 		};
 
 		if (window.Spotify && !playerInstance) {
-			console.log('[Spotify SDK] Detected, initializing');
 			window.onSpotifyWebPlaybackSDKReady();
 		}
 	}, [token, sdkReady, playerInstance]);
@@ -46,10 +46,7 @@ export const useSpotifyPlayer = (token: string | null, sdkReady: boolean) => {
 	useEffect(() => {
 		if (!playerInstance) return;
 
-		console.log('[Spotify Player] Setting up listeners');
-
 		const handleReady = ({ device_id }: { device_id: string }) => {
-			console.log('[Spotify Player] Ready with device ID:', device_id);
 			setDeviceId(device_id);
 		};
 
@@ -63,7 +60,6 @@ export const useSpotifyPlayer = (token: string | null, sdkReady: boolean) => {
 				console.warn('[Spotify Player] State is null');
 				return;
 			}
-			console.log('[Spotify Player] State changed:', state);
 			setIsPaused(state.paused);
 			setPosition(state.position);
 			setDuration(state.duration);
@@ -93,22 +89,21 @@ export const useSpotifyPlayer = (token: string | null, sdkReady: boolean) => {
 		});
 
 		return () => {
-			console.log('[Spotify Player] Cleaning up player instance');
 			playerInstance.disconnect();
+			setPlayerInstance(null);
+			setDeviceId(null);
 		};
-	}, [playerInstance]);
+	}, [playerInstance, sdkReady, token]);
 
 	// track progress
 	useEffect(() => {
 		if (!isPaused && duration > 0) {
-			console.log('[Player Progress] Starting interval');
 			intervalRef.current = setInterval(() => {
 				setPosition((prev) =>
 					prev + 1000 < duration ? prev + 1000 : duration
 				);
 			}, 1000);
 		} else if (intervalRef.current) {
-			console.log('[Player Progress] Paused or finished, clearing interval');
 			clearInterval(intervalRef.current);
 		}
 
