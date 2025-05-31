@@ -4,11 +4,12 @@ import { RecommendationTrack } from '@/components/Spotify/types';
 import { useSpotifyPlayer } from '@/hooks/useSpotifyPlayer/useSpotifyPlayer';
 import { useSpotifySdk } from '@/hooks/useSpotifySdk/useSpotifySdk';
 
-import { playTrackApi } from '@/lib/spotify/service/api';
+import { playTrackApi } from '@/lib/spotify/api/playTrack';
 import {
 	ISpotifyPlayerActions,
 	ISpotifyPlayerState,
 } from '@/lib/spotify/types';
+
 import { useSession } from 'next-auth/react';
 
 import {
@@ -47,10 +48,30 @@ export function SpotifyPlayerProvider({ children }: { children: ReactNode }) {
 
 	const playTrack = useCallback(
 		async (track: RecommendationTrack) => {
-			if (!deviceId || !token || !playerInstance) return;
+			if (!token || !playerInstance || !deviceId) return;
+
+			// make sure device is active before playing
+			try {
+				await fetch('https://api.spotify.com/v1/me/player', {
+					method: 'PUT',
+					headers: {
+						Authorization: `Bearer ${token}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						device_ids: [deviceId],
+						play: false,
+					}),
+				});
+
+				setCurrentTrackPlaying(track);
+				await playTrackApi(deviceId, token, track.uri);
+			} catch (error) {
+				console.error('Failed to play track:', error);
+			}
+
 			setCurrentTrackPlaying(track);
-			const trackUri = track.uri;
-			await playTrackApi(deviceId, token, trackUri);
+			await playTrackApi(deviceId, token, track.uri);
 		},
 		[deviceId, token, playerInstance]
 	);
@@ -74,6 +95,7 @@ export function SpotifyPlayerProvider({ children }: { children: ReactNode }) {
 			duration,
 			currentTrackUri,
 			currentTrackPlaying,
+			setCurrentTrackPlaying,
 		}),
 		[
 			deviceId,
@@ -82,6 +104,7 @@ export function SpotifyPlayerProvider({ children }: { children: ReactNode }) {
 			duration,
 			currentTrackUri,
 			currentTrackPlaying,
+			setCurrentTrackPlaying,
 		]
 	);
 
