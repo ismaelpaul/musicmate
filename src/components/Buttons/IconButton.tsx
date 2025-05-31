@@ -12,11 +12,14 @@ export default function IconButton({
 	className = '',
 	...props
 }: IconButtonProps) {
+	const baseStyles =
+		' transition-colors duration-300 ease-in-out cursor-pointer';
+
 	return (
 		<button
 			disabled={isDisabled}
 			aria-disabled={isDisabled}
-			className={`inline-flex items-center justify-center rounded-full p-2 transition-colors duration-300 ease-in-out ${className}`}
+			className={`${baseStyles} ${className}`}
 			{...props}
 		>
 			{icon}
