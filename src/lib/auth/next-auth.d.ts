@@ -4,7 +4,7 @@ declare module 'next-auth' {
 	interface Session extends DefaultSession {
 		user: {
 			spotify_id: string;
-			name: string;
+			full_name: string;
 			email: string;
 			image: string;
 		};
