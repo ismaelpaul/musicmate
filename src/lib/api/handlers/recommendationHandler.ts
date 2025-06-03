@@ -1,22 +1,26 @@
+import { authOptions } from '@/lib/auth/authOptions';
 import { recommendationRequestSchema } from '@/lib/llm/schema';
 import { getSpotifyParamsFromLlm } from '@/lib/llm/service/llmService';
-import { fetchRecommendationsFromReccoBeats } from '@/lib/reccobeats/service/reccobeatsService';
-import { extractSpotifyIdsFromReccoBeats } from '@/lib/reccobeats/utils/extractSpotifyIdsFromReccobeatsRecommendations';
-import { TOKEN_COOKIE_KEY } from '@/lib/spotify/constants';
+import { getTopTracksIdsForArtists } from '@/lib/spotify/api/getTopTracksIdsForArtists';
 import { SpotifyAuthError } from '@/lib/spotify/errors';
-import { searchSpotifyTracks } from '@/lib/spotify/service/spotifySearchService';
+import { searchSpotifyArtists } from '@/lib/spotify/service/searchSpotifyArtists';
+
 import { getSpotifyTracksByIds } from '@/lib/spotify/service/spotifyTracksByIdService';
-import { getCookie } from 'cookies-next';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth';
 
-export async function recommendationHandler(req: any, res: any) {
-	let spotifyAccessToken: string;
+export async function recommendationHandler(
+	req: NextApiRequest,
+	res: NextApiResponse
+) {
+	let token: string;
 
-	// validate user token
-	const cookieValue = await getCookie(TOKEN_COOKIE_KEY, { req, res });
-	if (typeof cookieValue === 'string' && cookieValue.length > 0) {
-		spotifyAccessToken = cookieValue;
+	const session = await getServerSession(req, res, authOptions);
+
+	if (session && typeof session.accessToken === 'string') {
+		token = session.accessToken;
 	} else {
-		throw new SpotifyAuthError('Authentication token missing. Please log in.');
+		throw new SpotifyAuthError('Session token is missing.. Please log in.');
 	}
 
 	// validate request body
@@ -25,44 +29,32 @@ export async function recommendationHandler(req: any, res: any) {
 	}
 
 	const validatedBody = recommendationRequestSchema.parse(req.body);
-	const { userQuery } = validatedBody;
+	const { userQuery, recommendationLimit } = validatedBody;
 
-	// get Spotify parameters from LLM
+	// get spotify parameters from llm
 	const llmParams = await getSpotifyParamsFromLlm(userQuery);
 
-	// search for tracks in Spotify based on LLM params
-	const seedTrackInfoArray = await searchSpotifyTracks(
+	// search for tracks in spotify based on llm params
+	const artists = await searchSpotifyArtists(
 		llmParams.seed_artists || [],
 		llmParams.seed_genres || [],
-		spotifyAccessToken
+		token,
+		recommendationLimit
 	);
 
-	if (seedTrackInfoArray.length === 0) {
+	if (artists.length === 0) {
 		return [];
 	}
 
-	const actualSeedTrackIds = seedTrackInfoArray.map(
-		(trackInfo) => trackInfo.id
+	const artistsIdsArray = artists.map((artist) => artist.id);
+
+	// fetch full track details from spotify to be used in the spotify player sdk
+	const artistsTopTracks = await getTopTracksIdsForArtists(
+		artistsIdsArray,
+		token
 	);
 
-	// fetch ReccoBeats recommendations
-	const reccoBeatsTracks = await fetchRecommendationsFromReccoBeats(
-		llmParams,
-		actualSeedTrackIds
-	);
-
-	// extract Spotify track IDs from ReccoBeats results
-	const spotifyIdsToFetch = extractSpotifyIdsFromReccoBeats(reccoBeatsTracks);
-
-	if (spotifyIdsToFetch.length === 0) {
-		return [];
-	}
-
-	// Fetch full track details from Spotify
-	const spotifyTracks = await getSpotifyTracksByIds(
-		spotifyIdsToFetch,
-		spotifyAccessToken
-	);
+	const spotifyTracks = await getSpotifyTracksByIds(artistsTopTracks, token);
 
 	return spotifyTracks;
 }
