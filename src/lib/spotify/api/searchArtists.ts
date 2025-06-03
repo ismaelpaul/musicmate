@@ -1,12 +1,12 @@
 import { config } from '../../config';
 import { SpotifyApiError, SpotifyAuthError } from '../errors';
-import { SpotifySearchResponse } from '../types';
+import { SpotifySearchArtistsResponse } from '../types';
 
 export async function searchArtists(
 	query: string,
 	limit: number,
 	token: string
-): Promise<SpotifySearchResponse> {
+): Promise<SpotifySearchArtistsResponse> {
 	const baseUrl = `${config.spotifyApiUrl}${config.spotifySearchEndpoint}`;
 	const params = new URLSearchParams({
 		q: query,
