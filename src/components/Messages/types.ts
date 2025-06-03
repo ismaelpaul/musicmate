@@ -1,7 +1,7 @@
 import { RecommendationTrack } from '../Spotify/types';
 
 export interface ChatMessage {
-	id: string;
+	id: number;
 	role: 'user' | 'system';
 	content: string;
 	status?: 'loading' | 'success' | 'error';
