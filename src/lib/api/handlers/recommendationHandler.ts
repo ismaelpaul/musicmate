@@ -33,6 +33,7 @@ export async function recommendationHandler(
 
 	// get spotify parameters from llm
 	const llmParams = await getSpotifyParamsFromLlm(userQuery);
+	console.log('LLM Parameters:', llmParams);
 
 	// search for tracks in spotify based on llm params
 	const artists = await searchSpotifyArtists(
