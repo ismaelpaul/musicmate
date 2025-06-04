@@ -5,7 +5,7 @@ import Intro from '../Intro/Intro';
 import { SystemMessage, UserMessage } from './types';
 
 interface MessagesListProps {
-	messages: UserMessage[] | SystemMessage[];
+	messages: (UserMessage | SystemMessage)[];
 }
 
 export function MessagesList({ messages }: MessagesListProps) {
