@@ -1,3 +1,5 @@
+'use client';
+
 import SpotifyLoginButton from '@/components/Buttons/SpotifyLoginButton';
 import Form from '@/components/Form/Form';
 

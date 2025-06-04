@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 
 export default function Intro() {
 	const { data: session } = useSession();
-	const firstName = session?.user?.name?.split(' ')[0];
+	const firstName = session?.user?.full_name?.split(' ')[0];
 
 	const hints = [
 		`"Give me some sad acoustic songs with the same vibe as Neil Young"`,

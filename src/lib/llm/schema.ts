@@ -18,11 +18,11 @@ export const llmSpotifyParamsSchema = z
 			if (data.seed_artists) totalSeeds += data.seed_artists.length;
 			if (data.seed_genres) totalSeeds += data.seed_genres.length;
 			if (data.seed_tracks) totalSeeds += data.seed_tracks.length;
-			return totalSeeds <= 5;
+			return totalSeeds <= 10;
 		},
 		{
 			message:
-				'Total number of seeds (artists + genres + tracks) cannot exceed 5',
+				'Total number of seeds (artists + genres + tracks) cannot exceed 10',
 		}
 	);
 

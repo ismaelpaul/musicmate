@@ -1,41 +1,53 @@
-import SpotifyPlayer from '../Spotify/SpotifyPlayer';
+'use client';
+
+import { CgClose } from 'react-icons/cg';
+import { FiMenu } from 'react-icons/fi';
 import IconButton from '../Buttons/IconButton';
-import {
-	TbLayoutSidebarLeftCollapseFilled,
-	TbLayoutSidebarLeftExpandFilled,
-} from 'react-icons/tb';
+import { SIDEBAR_ITEMS } from './sidebar-items';
+import { SidebarItem } from './SidebarItem';
+import { useMobile } from '@/hooks/useMobile/useMobile';
 import { useSidebarStore } from '@/store/useSidebarStore';
-import { RecommendationLimitSlider } from '../Recommendations/RecommendationLimitSlider';
+import SpotifyPlayer from '../Spotify/SpotifyPlayer';
 
 export default function Sidebar() {
 	const { isExpanded, setIsExpanded } = useSidebarStore();
+	const isMobile = useMobile();
+	const toggleSidebar = () => {
+		setIsExpanded(!isExpanded);
+	};
+
+	const baseStyles =
+		'flex flex-col py-4 px-6 gap-4 z-40 border-r border-gray-200 transition-[width, transform] duration-300 bg-white';
+
+	const mobileStyles = isExpanded
+		? 'fixed inset-y-0 left-0 transform translate-x-0 w-64'
+		: 'fixed inset-y-0 left-0 transform -translate-x-full w-10';
+
+	const desktopStyles = isExpanded
+		? 'relative w-64 transition-[width] duration-300'
+		: 'relative w-18 transition-[width] duration-300';
 
 	return (
-		<div
-			className={`relative flex flex-col flex-shrink-0 transition-all duration-300 bg-gray-200 ${
-				isExpanded ? 'p-4 w-96' : 'px-0 py-4 w-12'
-			}`}
-		>
-			<IconButton
-				onClick={() => setIsExpanded(!isExpanded)}
-				icon={
-					isExpanded ? (
-						<TbLayoutSidebarLeftCollapseFilled />
-					) : (
-						<TbLayoutSidebarLeftExpandFilled />
-					)
-				}
-				className="justify-end text-3xl text-black"
-			/>
+		<>
+			<aside
+				className={`${baseStyles} ${isMobile ? mobileStyles : desktopStyles}`}
+			>
+				<IconButton
+					icon={isExpanded ? <CgClose /> : <FiMenu />}
+					className="text-2xl ml-auto p-0"
+					onClick={toggleSidebar}
+				/>
 
-			{isExpanded && (
-				<>
-					<RecommendationLimitSlider />
-					<div className="flex-1 overflow-hidden">
-						<SpotifyPlayer />
-					</div>
-				</>
-			)}
-		</div>
+				<ul>
+					{SIDEBAR_ITEMS.map((item) => (
+						<li key={item.id} className="flex flex-col items-start gap-2">
+							<SidebarItem item={item} />
+						</li>
+					))}
+				</ul>
+
+				{isExpanded && <SpotifyPlayer />}
+			</aside>
+		</>
 	);
 }

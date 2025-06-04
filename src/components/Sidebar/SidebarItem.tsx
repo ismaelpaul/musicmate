@@ -1,3 +1,4 @@
+import { useSidebarStore } from '@/store/useSidebarStore';
 import React from 'react';
 
 interface SidebarItem {
@@ -12,13 +13,33 @@ interface SidebarItemProps {
 }
 
 export const SidebarItem = ({ item }: SidebarItemProps) => {
+	const { isExpanded } = useSidebarStore();
+
+	const animationBase = 'transition-all duration-100 ease-in-out transform';
+	const collapsedStyles =
+		'opacity-0 scale-95 pointer-events-none select-none invisible';
+
+	const expandedStyles = 'opacity-100 scale-100 visible';
+
+	const labelClasses = `
+		font-bold text-xl leading-normal origin-left
+		${animationBase}
+		${isExpanded ? expandedStyles : collapsedStyles}
+	`;
+
+	const contentClasses = `
+		w-full origin-top
+		${animationBase}
+		${isExpanded ? expandedStyles : collapsedStyles}
+	`;
+
 	return (
 		<>
 			<div className="flex items-center gap-2">
 				<item.icon className="w-6 h-6" />
-				<span className="font-bold text-xl leading-normal">{item.label}</span>
+				<span className={labelClasses}>{item.label}</span>
 			</div>
-			<div className="w-full">{item.content && <item.content />}</div>
+			<div className={contentClasses}>{item.content && <item.content />}</div>
 		</>
 	);
 };

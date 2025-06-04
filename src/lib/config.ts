@@ -15,7 +15,7 @@ const llmProvider = (process.env.LLM_PROVIDER || 'groq').toLowerCase();
 const defaultJsonMode = llmProvider === 'groq';
 
 // determine default model based on provider
-const defaultModel = llmProvider === 'groq' ? 'llama3-8b-8192' : 'gpt-4';
+const defaultModel = llmProvider === 'groq' ? 'llama-3.1-8b-instant' : 'gpt-4';
 
 //  main configuration
 export const config = {
@@ -25,7 +25,7 @@ export const config = {
 	llmApiUrl: process.env.LLM_API_URL,
 	llmApiKey: process.env.LLM_API_KEY,
 	llmModel: process.env.LLM_MODEL || defaultModel,
-	llmTemperature: parseFloat(process.env.LLM_TEMPERATURE || '0.3'),
+	llmTemperature: parseFloat(process.env.LLM_TEMPERATURE || '0.5'),
 	llmSupportsJsonMode: parseBooleanEnv(
 		process.env.LLM_SUPPORTS_JSON_MODE,
 		defaultJsonMode
@@ -73,7 +73,7 @@ if (missingVars.length > 0) {
 // validate temperature is a number
 if (isNaN(config.llmTemperature)) {
 	console.warn(
-		`Invalid LLM_TEMPERATURE provided (must be a number), using default 0.3.`
+		`Invalid LLM_TEMPERATURE provided (must be a number), using default 0.5.`
 	);
 	config.llmTemperature = 0.3;
 }

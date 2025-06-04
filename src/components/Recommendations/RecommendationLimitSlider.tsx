@@ -5,16 +5,18 @@ export function RecommendationLimitSlider() {
 
 	return (
 		<div className="flex flex-col gap-2">
-			<label htmlFor="slider" className="text-sm font-medium text-gray-700">
-				Number of Recommendations: {recommendationLimit}
+			<label htmlFor="slider" className=" text-gray-700">
+				Number of Recommendations:{' '}
+				<span className="font-bold text-lg">{recommendationLimit}</span>
 			</label>
 			<input
 				id="slider"
 				type="range"
-				min={5}
+				min={1}
 				max={20}
 				value={recommendationLimit}
 				onChange={(e) => setRecommendationLimit(Number(e.target.value))}
+				className="accent-black"
 			/>
 		</div>
 	);

@@ -22,7 +22,7 @@ export default function SpotifyLoginButton() {
 					priority
 				/>
 			}
-			className="gap-2 px-4 bg-black hover:bg-green-spotify cursor-pointer text-2xl"
+			className="flex items-center gap-2 p-4 rounded-full bg-black hover:bg-green-spotify cursor-pointer text-2xl"
 			onClick={handleLogin}
 		>
 			<span className="text-white">Login with Spotify</span>

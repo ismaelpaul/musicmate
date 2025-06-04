@@ -28,7 +28,9 @@ export function SystemMessage({ message }: SystemMessageProps) {
 		if (!message.recommendations || message.recommendations.length === 0) {
 			return <p>No specific recommendations found for that.</p>;
 		}
-		return <RecommendationList tracks={message.recommendations} />;
+		return (
+			<RecommendationList recommendationTracks={message.recommendations} />
+		);
 	}
 
 	return null;

@@ -10,7 +10,6 @@ export async function getSpotifyParamsFromLlm(
 		throw new LLMError('LLM service is not configured.');
 	}
 
-	console.log('Generating Prompt for query:', userQuery);
 	// generates prompt based on the user query
 	const prompt = generatePrompt(userQuery);
 
@@ -50,34 +49,25 @@ export async function getSpotifyParamsFromLlm(
 
 		// extracts JSON string
 		const jsonString = data?.choices?.[0]?.message?.content ?? '';
-		if (!jsonString)
-			if (!config.llmSupportsJsonMode) {
-				throw new LLMOutputFormatError('LLM returned empty content.');
-			}
+		if (!jsonString && !config.llmSupportsJsonMode) {
+			throw new LLMOutputFormatError('LLM returned empty content.');
+		}
 
 		// parses and validates using Zod ---
 		const parsedJson = JSON.parse(jsonString);
 		const validationResult = llmSpotifyParamsSchema.safeParse(parsedJson);
 
 		if (!validationResult.success) {
-			console.error(
-				'LLM JSON failed Zod validation:',
-				validationResult.error.errors
-			);
-			console.error('Original LLM JSON string:', jsonString);
 			throw new LLMOutputFormatError(
 				`LLM JSON failed schema validation: ${validationResult.error.message}`
 			);
 		}
 
-		console.log('LLM Output Validated:', validationResult.data);
 		return validationResult.data;
 	} catch (error) {
 		if (error instanceof SyntaxError) {
-			console.error('LLM JSON parsing error:', error);
 			throw new LLMOutputFormatError('LLM output was not valid JSON.');
 		}
-		console.error('Unexpected error in LLM service:', error);
 		throw new LLMError('An unexpected error occurred during LLM processing.');
 	}
 }

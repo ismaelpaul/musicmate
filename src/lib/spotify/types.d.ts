@@ -1,4 +1,4 @@
-import { RecommendationTrack } from '@/components/Spotify/types';
+import { RecommendationTrack, SpotifyArtist } from '@/components/Spotify/types';
 
 export interface SpotifyTokenResponse {
 	access_token: string;
@@ -8,11 +8,16 @@ export interface SpotifyTokenResponse {
 	refresh_token?: string;
 }
 
-export interface SpotifySearchResponse {
-	tracks: {
-		items: SpotifySearchTrackItem[];
+export interface SpotifySearchArtistsResponse {
+	artists: {
+		href: string;
+		limit: number;
+		next: string | null;
+		offset: number;
+		previous: string | null;
 		total: number;
-	} | null;
+		items: SpotifyArtist[];
+	};
 }
 
 export interface SpotifySearchTrackItem {

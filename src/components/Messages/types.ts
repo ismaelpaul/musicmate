@@ -1,10 +1,15 @@
 import { RecommendationTrack } from '../Spotify/types';
 
-export interface ChatMessage {
+export interface UserMessage {
 	id: string;
-	role: 'user' | 'system';
+	role: 'user';
 	content: string;
-	status?: 'loading' | 'success' | 'error';
-	error?: string;
+}
+
+export interface SystemMessage {
+	id: string;
+	role: 'system';
+	status: 'loading' | 'success' | 'error';
 	recommendations?: RecommendationTrack[];
+	error?: string;
 }

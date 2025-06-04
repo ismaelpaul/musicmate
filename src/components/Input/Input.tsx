@@ -4,33 +4,34 @@ import { useEffect, useRef } from 'react';
 import { useFormSubmitOnEnter } from '@/hooks/useFormSubmittionOnEnter/useFormSubmittionOnEnter';
 
 type InputProps = {
-	message: string;
-	setMessage: React.Dispatch<React.SetStateAction<string>>;
+	inputValue: string;
+	setInputValue: React.Dispatch<React.SetStateAction<string>>;
 	autoFocus?: boolean;
 	disabled?: boolean;
 };
 
 export default function Input({
-	message,
-	setMessage,
+	inputValue,
+	setInputValue,
 	autoFocus,
 	disabled,
 }: InputProps) {
-	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-	const handleKeyDown = useFormSubmitOnEnter(message, textareaRef);
+	const handleKeyDown = useFormSubmitOnEnter(inputValue, textareaRef);
 
 	const resizeTextarea = () => {
 		const textarea = textareaRef.current;
 		if (textarea) {
 			textarea.style.height = 'auto';
+			textarea.style.height = `${textarea.scrollHeight}px`;
 			textarea.style.maxHeight = '150px';
 		}
 	};
 
 	const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
 		resizeTextarea();
-		setMessage(e.currentTarget.value);
+		setInputValue(e.currentTarget.value);
 	};
 
 	useEffect(() => {
@@ -42,14 +43,13 @@ export default function Input({
 	return (
 		<textarea
 			ref={textareaRef}
-			value={message}
-			onInput={handleInput}
+			value={inputValue}
 			onKeyDown={handleKeyDown}
-			onChange={(e) => setMessage(e.target.value)}
+			onChange={(e) => handleInput(e)}
 			disabled={disabled}
 			rows={1}
 			placeholder="Type what you want to listen to..."
-			className="w-100 pr-12 pl-6 py-3 bg-gray-100 rounded-full flex-1 resize-none shadow-sm overflow-hidden focus:outline-none focus:ring-2 focus:ring-gray-700"
+			className="w-100 pr-12 pl-6 py-3 text-lg bg-white text-gray-800 rounded-full flex-1 resize-none shadow-sm overflow-hidden focus:outline-none focus:ring-2 focus:ring-gray-700"
 		></textarea>
 	);
 }
