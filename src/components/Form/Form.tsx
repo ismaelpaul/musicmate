@@ -15,7 +15,6 @@ interface FormProps {
 	autoFocus?: boolean;
 	disabled?: boolean;
 	onSendMessage: (message: UserMessage | SystemMessage) => void;
-	onReceivingResults: (messageId: string) => void;
 	onResultsReceived: (
 		messageId: string,
 		recommendations: RecommendationTrack[],
@@ -30,11 +29,11 @@ export default function Form({
 	onSendMessage,
 	onResultsReceived,
 }: FormProps) {
-	const [message, setMessage] = useState<string>('');
+	const [inputValue, setInputValue] = useState<string>('');
 
 	const { recommendationLimit } = useSidebarStore.getState();
 
-	const isDisabled = message.trim() === '';
+	const isDisabled = inputValue.trim() === '';
 
 	const uniqueId = uuidv4();
 
@@ -49,7 +48,7 @@ export default function Form({
 		const userMessage: UserMessage = {
 			id: userMessageId,
 			role: 'user',
-			content: message,
+			content: inputValue,
 		};
 		onSendMessage(userMessage);
 
@@ -59,7 +58,7 @@ export default function Form({
 			role: 'system',
 			status: 'loading',
 		});
-		setMessage('');
+		setInputValue('');
 
 		// fetch recommendations
 		try {
@@ -68,7 +67,7 @@ export default function Form({
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ userQuery: message, recommendationLimit }),
+				body: JSON.stringify({ userQuery: inputValue, recommendationLimit }),
 			});
 
 			const data = await response.json();
@@ -112,8 +111,8 @@ export default function Form({
 				value={recommendationLimit}
 			/>
 			<Input
-				message={message}
-				setMessage={setMessage}
+				inputValue={inputValue}
+				setInputValue={setInputValue}
 				autoFocus={autoFocus}
 				disabled={disabled}
 			/>
