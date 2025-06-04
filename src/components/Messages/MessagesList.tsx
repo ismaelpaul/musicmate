@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { MessageItem } from './MessageItem';
-import { ChatMessage } from './types';
 
 import Intro from '../Intro/Intro';
+import { SystemMessage, UserMessage } from './types';
 
 interface MessagesListProps {
-	messages: ChatMessage[];
+	messages: UserMessage[] | SystemMessage[];
 }
 
 export function MessagesList({ messages }: MessagesListProps) {
