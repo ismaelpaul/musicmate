@@ -13,3 +13,5 @@ export interface SystemMessage {
 	recommendations?: RecommendationTrack[];
 	error?: string;
 }
+
+export type ChatMessage = UserMessage | SystemMessage;
