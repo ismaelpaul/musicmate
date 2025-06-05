@@ -1,4 +1,4 @@
-import { authOptions } from '@/lib/auth/authOptions';
+import { getAuthOptions } from '@/lib/auth/authOptions';
 import { recommendationRequestSchema } from '@/lib/llm/schema';
 import { getSpotifyParamsFromLlm } from '@/lib/llm/service/llmService';
 import { getTopTracksIdsForArtists } from '@/lib/spotify/api/getTopTracksIdsForArtists';
@@ -15,7 +15,7 @@ export async function recommendationHandler(
 ) {
 	let token: string;
 
-	const session = await getServerSession(req, res, authOptions);
+	const session = await getServerSession(req, res, getAuthOptions());
 
 	if (session && typeof session.accessToken === 'string') {
 		token = session.accessToken;
