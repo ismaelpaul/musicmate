@@ -1,4 +1,6 @@
-export const refreshAccessToken = async (token: any) => {
+import { JWT } from 'next-auth/jwt';
+
+export const refreshAccessToken = async (token: JWT): Promise<JWT> => {
 	try {
 		const basicAuth = Buffer.from(
 			`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
