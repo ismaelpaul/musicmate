@@ -1,11 +1,11 @@
-import { authOptions } from '@/lib/auth/authOptions';
+import { getAuthOptions } from '@/lib/auth/authOptions';
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 
 const protectedRoutes = ['/'];
 
 export async function middleware(req: NextRequest) {
-	const token = await getToken({ req, secret: authOptions.secret });
+	const token = await getToken({ req, secret: getAuthOptions().secret });
 
 	const isProtected = protectedRoutes.some((route) =>
 		req.nextUrl.pathname.startsWith(route)
