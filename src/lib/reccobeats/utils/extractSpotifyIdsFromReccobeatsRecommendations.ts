@@ -1,4 +1,8 @@
-export function extractSpotifyIdsFromReccoBeats(reccoBeatsTracks: any) {
+import { ReccobeatsResponse } from '../types';
+
+export function extractSpotifyIdsFromReccoBeats(
+	reccoBeatsTracks: ReccobeatsResponse
+) {
 	const spotifyIdsToFetch: string[] = [];
 	for (const track of reccoBeatsTracks.content) {
 		try {
