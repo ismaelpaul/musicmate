@@ -1,7 +1,7 @@
 'use client';
 
 import SpotifyLoginButton from '@/components/Buttons/SpotifyLoginButton';
-import Form from '@/components/Form/Form';
+import DisabledForm from '@/components/Form/DisabledForm';
 
 export default function Login() {
 	return (
@@ -12,7 +12,7 @@ export default function Login() {
 				<SpotifyLoginButton />
 			</div>
 			<div className="w-3xl max-w-3xl p-6 mx-auto">
-				<Form autoFocus={false} disabled={true} />
+				<DisabledForm />
 			</div>
 		</main>
 	);
