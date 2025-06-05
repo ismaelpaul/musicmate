@@ -1,12 +1,13 @@
 import { LuLoaderCircle } from 'react-icons/lu';
-import { ChatMessage } from './types';
+
 import { RecommendationList } from '../Recommendations/RecommendationsList';
+import { SystemMessage } from './types';
 
 interface SystemMessageProps {
-	message: ChatMessage;
+	message: SystemMessage;
 }
 
-export function SystemMessage({ message }: SystemMessageProps) {
+export function SystemMessageComponent({ message }: SystemMessageProps) {
 	if (message.status === 'loading') {
 		return (
 			<div className="flex items-center gap-2 text-gray-600">

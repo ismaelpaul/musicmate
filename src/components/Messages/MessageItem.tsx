@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChatMessage } from './types';
-import { UserMessage } from './UserMessage';
-import { SystemMessage } from './SystemMessage';
+import { UserMessageComponent } from './UserMessage';
+import { SystemMessageComponent } from './SystemMessage';
 
 interface MessageItemProps {
 	message: ChatMessage;
@@ -20,9 +20,9 @@ export const MessageItem = React.memo(function MessageItem({
 				}`}
 			>
 				{isUser ? (
-					<UserMessage userMessage={message.content} />
+					<UserMessageComponent userMessage={message.content} />
 				) : (
-					<SystemMessage message={message} />
+					<SystemMessageComponent message={message} />
 				)}
 			</div>
 		</div>
