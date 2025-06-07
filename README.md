@@ -70,13 +70,6 @@ Try the app now:
 
 🔗 [Hosted App](https://musicmate-kohl.vercel.app/)
 
-**Demo Login:**
-
-Email: `demo@musicmate.com`  
-Password: `password123`
-
-> _Note: Enable cookies for proper authentication flow._
-
 ---
 
 ## Getting Started
