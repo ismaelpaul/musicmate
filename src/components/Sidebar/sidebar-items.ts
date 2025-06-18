@@ -1,11 +1,11 @@
-import { HiOutlineCog6Tooth } from 'react-icons/hi2';
-import { RecommendationLimitSlider } from '../Recommendations/RecommendationLimitSlider';
+import { IoSearch } from 'react-icons/io5';
+import { SearchRecommendations } from '../SearchRecommendations/SearchRecommendations';
 
 export const SIDEBAR_ITEMS = [
 	{
-		id: 'config',
-		label: 'Configurations',
-		icon: HiOutlineCog6Tooth,
-		content: RecommendationLimitSlider,
+		id: 'search',
+		label: 'Search Types',
+		icon: IoSearch,
+		content: SearchRecommendations,
 	},
 ];
