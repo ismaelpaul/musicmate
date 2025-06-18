@@ -22,7 +22,7 @@ export function Slider({
 	step = 0.1,
 }: SliderProps) {
 	return (
-		<div className="w-64">
+		<div className="max-w-64">
 			<div className="flex justify-between items-center">
 				<label htmlFor={id} className="text-sm font-medium text-gray-700">
 					{label}
@@ -37,7 +37,7 @@ export function Slider({
 				step={step}
 				value={value}
 				onChange={(e) => onChange(parseFloat(e.target.value))}
-				className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer text-black"
+				className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-thumb"
 			/>
 		</div>
 	);
