@@ -69,7 +69,7 @@ export function RecommendationItem({
 				</div>
 			</div>
 			<IconButton
-				className="flex items-center justify-center bg-black p-3 rounded-full cursor-pointer text-white hover:bg-green-spotify"
+				className="flex items-center justify-center bg-black p-3 rounded-full cursor-pointer text-white hover:bg-green-spotify ml-3"
 				onClick={
 					isThisTrackTheCurrentOne
 						? handleToggleCurrentTrack
