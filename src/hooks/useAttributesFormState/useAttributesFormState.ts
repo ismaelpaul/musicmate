@@ -11,10 +11,11 @@ export const useAttributeFormState = () => {
 			sliderOptions.map((opt) => [opt.id, (opt.min + opt.max) / 2])
 		)
 	);
+	const [recommendationLimit, setRecommendationLimit] = useState<number>(10);
 
 	const handleAttributeToggle = (id: string) => {
 		setSelectedAttributes((prev) =>
-			prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+			prev.includes(id) ? prev.filter((attr) => attr !== id) : [...prev, id]
 		);
 	};
 
@@ -27,7 +28,12 @@ export const useAttributeFormState = () => {
 			selectedAttributes.map((id) => [id, sliderValues[id]])
 		);
 
-		const payload = { artist, attributes: selectedSliders };
+		const payload = {
+			artist,
+			attributes: selectedSliders,
+			recommendationLimit: recommendationLimit,
+		};
+
 		const result = attributeSchema.safeParse(payload);
 
 		if (!result.success) {
@@ -49,5 +55,7 @@ export const useAttributeFormState = () => {
 		sliderValues,
 		handleSliderChange,
 		validateAndGetPayload,
+		setRecommendationLimit,
+		recommendationLimit,
 	};
 };
