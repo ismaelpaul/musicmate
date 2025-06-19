@@ -1,10 +1,10 @@
-import { ReccobeatsResponse } from '../types';
+import { ReccobeatsReponseObj } from '../types';
 
 export function extractSpotifyIdsFromReccoBeats(
-	reccoBeatsTracks: ReccobeatsResponse
-) {
+	seedArtistsInfo: ReccobeatsReponseObj[]
+): string[] {
 	const spotifyIdsToFetch: string[] = [];
-	for (const track of reccoBeatsTracks.content) {
+	for (const track of seedArtistsInfo) {
 		try {
 			const potentialId = track.href?.split('/').pop()?.split('?')[0];
 			if (potentialId?.length === 22) {
