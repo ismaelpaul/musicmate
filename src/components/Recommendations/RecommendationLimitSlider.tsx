@@ -1,7 +1,8 @@
-import { useSidebarStore } from '@/store/useSidebarStore';
+import { useAttributeFormState } from '@/hooks/useAttributesFormState/useAttributesFormState';
 
 export function RecommendationLimitSlider() {
-	const { recommendationLimit, setRecommendationLimit } = useSidebarStore();
+	const { recommendationLimit, setRecommendationLimit } =
+		useAttributeFormState();
 
 	return (
 		<div className="flex flex-col gap-2">

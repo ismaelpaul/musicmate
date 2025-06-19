@@ -1,6 +1,6 @@
 import { LuSendHorizontal } from 'react-icons/lu';
 import IconButton from '../Buttons/IconButton';
-import Input from '../Input/Input';
+import Input from '../Inputs/TextAreaInput';
 
 export default function DisabledForm() {
 	return (

@@ -17,7 +17,7 @@ export const SidebarItem = ({ item }: SidebarItemProps) => {
 
 	const animationBase = 'transition-all duration-100 ease-in-out transform';
 	const collapsedStyles =
-		'opacity-0 scale-95 pointer-events-none select-none invisible';
+		'opacity-0 scale-95 pointer-events-none select-none invisible hidden';
 
 	const expandedStyles = 'opacity-100 scale-100 visible';
 
@@ -28,7 +28,7 @@ export const SidebarItem = ({ item }: SidebarItemProps) => {
 	`;
 
 	const contentClasses = `
-		w-full origin-top
+		origin-top
 		${animationBase}
 		${isExpanded ? expandedStyles : collapsedStyles}
 	`;

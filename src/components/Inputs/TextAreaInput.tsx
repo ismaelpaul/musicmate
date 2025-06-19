@@ -10,7 +10,7 @@ type InputProps = {
 	disabled?: boolean;
 };
 
-export default function Input({
+export default function TextAreaInput({
 	inputValue,
 	setInputValue,
 	autoFocus,

@@ -1,12 +1,16 @@
 export async function getTopTracksIdsForArtists(
-	artistIds: string[],
-	token: string
-) {
-	const trackIds = [];
+	artistIds: string[] | string,
+	token: string,
+	options?: { limit?: number }
+): Promise<string[]> {
+	const ids: string[] = [];
 
-	for (const artistId of artistIds) {
+	const artistIdList = Array.isArray(artistIds) ? artistIds : [artistIds];
+	const limit = options?.limit ?? 1;
+
+	for (const artistId of artistIdList) {
 		const response = await fetch(
-			`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`,
+			`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=from_token`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -14,15 +18,21 @@ export async function getTopTracksIdsForArtists(
 			}
 		);
 
-		if (!response.ok) continue;
+		if (!response.ok) {
+			throw new Error(
+				`Failed to fetch top tracks for artist ${artistId}. Status: ${response.status}`
+			);
+		}
 
 		const data = await response.json();
-		const topTrack = data.tracks?.[0];
+		const tracks = data.tracks?.slice(0, limit) || [];
 
-		if (topTrack?.id) {
-			trackIds.push(topTrack.id);
+		for (const track of tracks) {
+			if (track?.id) {
+				ids.push(track.id);
+			}
 		}
 	}
 
-	return trackIds;
+	return ids;
 }

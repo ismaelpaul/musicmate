@@ -5,10 +5,9 @@ import { RecommendationTrack } from '../Spotify/types';
 import { SystemMessage, UserMessage } from '../Messages/types';
 
 import IconButton from '../Buttons/IconButton';
-import Input from '../Input/Input';
+import Input from '../Inputs/TextAreaInput';
 
 import { LuSendHorizontal } from 'react-icons/lu';
-import { useSidebarStore } from '@/store/useSidebarStore';
 import { v4 as uuidv4 } from 'uuid';
 
 interface FormProps {
@@ -23,15 +22,13 @@ interface FormProps {
 	) => void;
 }
 
-export default function Form({
+export default function NaturalLanguageForm({
 	autoFocus = true,
 	disabled = false,
 	onSendMessage,
 	onResultsReceived,
 }: FormProps) {
 	const [inputValue, setInputValue] = useState<string>('');
-
-	const { recommendationLimit } = useSidebarStore.getState();
 
 	const isDisabled = inputValue.trim() === '';
 
@@ -67,7 +64,7 @@ export default function Form({
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ userQuery: inputValue, recommendationLimit }),
+				body: JSON.stringify({ userQuery: inputValue }),
 			});
 
 			const data = await response.json();
@@ -105,11 +102,6 @@ export default function Form({
 			onSubmit={handleSubmit}
 			className="relative w-full flex items-center gap-2"
 		>
-			<input
-				type="hidden"
-				name="recommendationLimit"
-				value={recommendationLimit}
-			/>
 			<Input
 				inputValue={inputValue}
 				setInputValue={setInputValue}

@@ -10,8 +10,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	const { isExpanded } = useSidebarStore();
 	const isMobile = useMobile();
 
+	const isNaturalLanguageSearchEnabled = useSidebarStore(
+		(state) => state.isNaturalLanguageSearchEnabled
+	);
+
 	return (
-		<div className="relative flex h-screen overflow-hidden">
+		<div className="relative flex h-screen">
 			<Sidebar />
 
 			{isMobile && isExpanded && <Overlay />}
@@ -19,7 +23,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 			<div className="flex flex-col flex-1 relative transition-all duration-300">
 				<Topbar />
 
-				<main className="flex flex-col flex-1 gap-4 max-w-3xs md:max-w-sm lg:max-w-3xl sm:pt-10 md:p-6 overflow-auto mx-auto z-10 relative">
+				<main
+					className={`flex flex-col flex-1 gap-4 sm:pt-10 md:p-6 lg:px-10	 z-10 relative ${
+						isNaturalLanguageSearchEnabled
+							? 'max-w-3xs md:max-w-sm lg:max-w-3xl mx-auto'
+							: ''
+					}`}
+				>
 					{children}
 				</main>
 			</div>

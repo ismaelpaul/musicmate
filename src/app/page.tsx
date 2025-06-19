@@ -1,11 +1,14 @@
 'use client';
 
-import Form from '@/components/Form/Form';
+import { AttributeRecommendations } from '@/components/AttributeRecommendations/AttributeRecommendations';
+import NaturalLanguageForm from '@/components/Form/NaturalLanguageForm';
 import Layout from '@/components/Layout/Layout';
 import { MessagesList } from '@/components/Messages/MessagesList';
 import { SystemMessage, UserMessage } from '@/components/Messages/types';
+import { RecommendationList } from '@/components/Recommendations/RecommendationsList';
 
 import { RecommendationTrack } from '@/components/Spotify/types';
+import { useSidebarStore } from '@/store/useSidebarStore';
 
 import { useCallback, useState } from 'react';
 
@@ -13,7 +16,13 @@ type Messages = UserMessage | SystemMessage;
 
 export default function Home() {
 	const [messages, setMessages] = useState<Messages[]>([]);
-	console.log('messages', messages);
+	const [attributeRecommendations, setAttributeRecommendations] = useState<
+		RecommendationTrack[]
+	>([]);
+
+	const isNaturalLanguageSearchEnabled = useSidebarStore(
+		(state) => state.isNaturalLanguageSearchEnabled
+	);
 
 	// ddd a new message
 	const handleSendMessage = useCallback((newMessage: Messages) => {
@@ -42,13 +51,30 @@ export default function Home() {
 	return (
 		<Layout>
 			{/* main content */}
-			<div className="flex-1 overflow-y-auto no-scrollbar">
-				<MessagesList messages={messages} />
-			</div>
-			<Form
-				onSendMessage={handleSendMessage}
-				onResultsReceived={handleResultsReceived}
-			/>
+			{isNaturalLanguageSearchEnabled ? (
+				<>
+					<div className="flex-1 overflow-y-auto no-scrollbar">
+						<MessagesList messages={messages} />
+					</div>
+					<NaturalLanguageForm
+						onSendMessage={handleSendMessage}
+						onResultsReceived={handleResultsReceived}
+					/>
+				</>
+			) : (
+				<div className="flex justify-between">
+					<AttributeRecommendations
+						setAttributeRecommendations={setAttributeRecommendations}
+					/>
+					{attributeRecommendations.length > 0 && (
+						<div className="min-w-4 max-h-[80vh] overflow-y-auto no-scrollbar">
+							<RecommendationList
+								recommendationTracks={attributeRecommendations}
+							/>
+						</div>
+					)}
+				</div>
+			)}
 		</Layout>
 	);
 }
