@@ -29,18 +29,17 @@ export async function recommendationHandler(
 	}
 
 	const validatedBody = recommendationRequestSchema.parse(req.body);
-	const { userQuery, recommendationLimit } = validatedBody;
+	const { userQuery } = validatedBody;
 
 	// get spotify parameters from llm
 	const llmParams = await getSpotifyParamsFromLlm(userQuery);
-	console.log('LLM Parameters:', llmParams);
 
 	// search for tracks in spotify based on llm params
 	const artists = await searchSpotifyArtists(
 		llmParams.seed_artists || [],
 		llmParams.seed_genres || [],
 		token,
-		recommendationLimit
+		5
 	);
 
 	if (artists.length === 0) {
