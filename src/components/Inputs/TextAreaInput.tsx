@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { useFormSubmitOnEnter } from '@/hooks/useFormSubmittionOnEnter/useFormSubmittionOnEnter';
+import { useMobile } from '@/hooks/useMobile/useMobile';
 
 type InputProps = {
 	inputValue: string;
@@ -17,6 +18,8 @@ export default function TextAreaInput({
 	disabled,
 }: InputProps) {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+	const isMobile = useMobile();
 
 	const handleKeyDown = useFormSubmitOnEnter(inputValue, textareaRef);
 
@@ -48,7 +51,9 @@ export default function TextAreaInput({
 			onChange={(e) => handleInput(e)}
 			disabled={disabled}
 			rows={1}
-			placeholder="Type what you want to listen to..."
+			placeholder={`${
+				isMobile ? 'Search music...' : 'Type what you want to listen to...'
+			}`}
 			className="w-100 pr-12 pl-6 py-3 text-lg bg-white text-gray-800 rounded-full flex-1 resize-none shadow-sm overflow-hidden focus:outline-none focus:ring-2 focus:ring-gray-700"
 		></textarea>
 	);
