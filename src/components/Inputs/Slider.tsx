@@ -22,7 +22,7 @@ export function Slider({
 	step = 0.1,
 }: SliderProps) {
 	return (
-		<div className="max-w-64">
+		<div className="lg:max-w-64">
 			<div className="flex justify-between items-center">
 				<label htmlFor={id} className="text-sm font-medium text-gray-700">
 					{label}
