@@ -62,12 +62,12 @@ export default function Home() {
 					/>
 				</>
 			) : (
-				<div className="flex justify-between">
+				<div className="flex flex-col lg:flex-row justify-between">
 					<AttributeRecommendations
 						setAttributeRecommendations={setAttributeRecommendations}
 					/>
 					{attributeRecommendations.length > 0 && (
-						<div className="min-w-4 max-h-[80vh] overflow-y-auto no-scrollbar">
+						<div className="mt-4 min-w-4 lg:max-h-[80vh] overflow-y-auto no-scrollbar">
 							<RecommendationList
 								recommendationTracks={attributeRecommendations}
 							/>
