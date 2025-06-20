@@ -52,10 +52,12 @@ export const AttributesForm = ({
 		}
 	};
 
+	const isDisabled = !artist.trim() || isLoading;
+
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="space-y-6 max-h-[80vh] overflow-y-auto no-scrollbar"
+			className="space-y-6 md:max-h-[80vh] overflow-x-hidden overflow-y-auto no-scrollbar lg:max-w-5xl"
 		>
 			<AttributesList
 				selectedAttributes={selectedAttributes}
@@ -68,7 +70,7 @@ export const AttributesForm = ({
 				onChange={handleSliderChange}
 			/>
 
-			<div className="grid grid-cols-2 gap-8">
+			<div className="grid grid-rows-2 md:grid-rows-none md:grid-cols-2 gap-8">
 				<TextInput
 					label="Artist"
 					placeholder="e.g., Daft Punk"
@@ -96,7 +98,13 @@ export const AttributesForm = ({
 				<IconButton
 					type="submit"
 					icon={`${isLoading ? 'Loading..' : 'Get Recommendations'}`}
-					className="px-4 py-2 bg-black rounded-full text-white dark:text-black dark:bg-gray-300 hover:bg-green-spotify"
+					className={`px-4 py-2 bg-black rounded-full text-white dark:text-black dark:bg-gray-300 ${
+						isDisabled
+							? 'opacity-50 cursor-not-allowed'
+							: 'hover:bg-green-spotify'
+					}
+				 `}
+					disabled={isDisabled}
 				/>
 			)}
 		</form>
