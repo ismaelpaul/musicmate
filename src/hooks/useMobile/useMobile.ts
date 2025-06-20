@@ -23,7 +23,7 @@ export const useMobile = () => {
 		};
 	}, []);
 
-	const isMobile: boolean = screenSize.width <= 768;
+	const isMobile: boolean = screenSize.width < 768;
 
 	return isMobile;
 };
