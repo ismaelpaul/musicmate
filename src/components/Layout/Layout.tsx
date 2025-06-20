@@ -26,8 +26,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				<main
 					className={`flex flex-col flex-1 gap-4 sm:pt-10 md:p-6 lg:px-10	 z-10 relative ${
 						isNaturalLanguageSearchEnabled
-							? 'max-w-3xs md:max-w-sm lg:max-w-3xl mx-auto'
-							: ''
+							? 'max-w-3xs md:max-w-2xl lg:max-w-3xl mx-auto'
+							: 'p-5 md:overflow-y-auto no-scrollbar'
 					}`}
 				>
 					{children}
