@@ -16,7 +16,9 @@ export function RecommendationList({ recommendationTracks }: Props) {
 
 	return (
 		<div className="space-y-2">
-			<p className="mb-2 font-medium">Here are some recommendations:</p>
+			<p className="mb-2 text-base lg:text-lg font-medium">
+				Here are some recommendations:
+			</p>
 			{recommendationTracks.map((track) => (
 				<RecommendationItem
 					key={track.id}
