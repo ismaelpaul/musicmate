@@ -14,13 +14,13 @@ export const AttributesList = ({
 }: AttributesListProps) => {
 	return (
 		<fieldset>
-			<legend className="text-base font-medium text-gray-900 mb-2">
+			<legend className="text-base lg:text-xl font-medium text-gray-900 mb-4">
 				Select attributes to tune
 			</legend>
 			<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
 				{sliderOptions.map(({ id, label, description }) => {
 					const checkboxLabelWithTooltip = (
-						<div className="flex items-center gap-1.5">
+						<div className="flex text-sm lg:text-base items-center gap-1.5">
 							<span>{label}</span>
 							<Tooltip text={description}>
 								<FiInfo size={16} className="text-gray-500 cursor-help" />

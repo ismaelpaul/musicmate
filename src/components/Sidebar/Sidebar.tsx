@@ -17,7 +17,7 @@ export default function Sidebar() {
 	};
 
 	const baseStyles =
-		'flex flex-col py-4 px-6 gap-4 z-40 border-r border-gray-200 transition-[width, transform] duration-300 bg-white';
+		'flex flex-col items-center z-40 border-r border-gray-200 transition-[width, transform] duration-300 bg-white';
 
 	const mobileStyles = isExpanded
 		? 'fixed inset-y-0 left-0 transform translate-x-0 w-64'
@@ -34,13 +34,26 @@ export default function Sidebar() {
 			>
 				<IconButton
 					icon={isExpanded ? <CgClose /> : <FiMenu />}
-					className="text-2xl ml-auto p-0"
+					className={`text-2xl p-3 ${
+						isExpanded
+							? 'ml-auto'
+							: 'hover:bg-gray-200 w-full flex flex-col items-center'
+					}`}
 					onClick={toggleSidebar}
 				/>
 
-				<ul>
+				<ul
+					className={`w-full ${
+						isExpanded ? '' : 'hover:bg-gray-200'
+					} cursor-pointer`}
+				>
 					{SIDEBAR_ITEMS.map((item) => (
-						<li key={item.id} className="flex flex-col items-start gap-2">
+						<li
+							key={item.id}
+							className={`flex flex-col gap-2 ${
+								isExpanded ? '' : 'items-center p-3'
+							}`}
+						>
 							<SidebarItem item={item} />
 						</li>
 					))}

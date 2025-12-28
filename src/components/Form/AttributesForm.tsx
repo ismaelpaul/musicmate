@@ -57,7 +57,7 @@ export const AttributesForm = ({
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="space-y-6 md:max-h-[80vh] overflow-x-hidden overflow-y-auto no-scrollbar lg:max-w-5xl"
+			className="space-y-6 overflow-x-hidden overflow-y-auto no-scrollbar lg:max-w-5xl"
 		>
 			<AttributesList
 				selectedAttributes={selectedAttributes}

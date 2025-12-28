@@ -35,7 +35,7 @@ export const SidebarItem = ({ item }: SidebarItemProps) => {
 
 	return (
 		<>
-			<div className="flex items-center gap-2">
+			<div className={`flex items-center gap-2 ${isExpanded ? 'pl-3' : ''}`}>
 				<item.icon className="w-6 h-6" />
 				<span className={labelClasses}>{item.label}</span>
 			</div>

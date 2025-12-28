@@ -24,10 +24,15 @@ export function Slider({
 	return (
 		<div className="lg:max-w-64">
 			<div className="flex justify-between items-center">
-				<label htmlFor={id} className="text-sm font-medium text-gray-700">
+				<label
+					htmlFor={id}
+					className="text-sm lg:text-xl font-medium text-gray-700"
+				>
 					{label}
 				</label>
-				<span className="text-lg font-bold text-black">{value}</span>
+				<span className="text-lg lg:text-2xl font-bold text-black">
+					{value}
+				</span>
 			</div>
 			<input
 				id={id}

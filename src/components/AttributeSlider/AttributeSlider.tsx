@@ -21,7 +21,7 @@ export const AttributeSliders: React.FC<Props> = ({
 
 	return (
 		<div className="border-t border-gray-200 pt-6">
-			<ul className="grid grid-cols-2 gap-8">
+			<ul className="grid grid-cols-2 lg:grid-cols-3 gap-8">
 				{activeSliders.map(({ id, label, min, max, step }) => (
 					<li key={id}>
 						<Slider
